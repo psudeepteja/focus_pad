@@ -67,22 +67,22 @@ export default function NotesList({ setIsEdit, setNoteValues, notesData, type })
         }
     }
 
-    const handleSearch =(e)=>{
+    // const handleSearch =(e)=>{
         
-        const filterNotes= notesData.map(i=>(
-            (i.title || i.description).includes(e.target.value)
-        )) 
-        console.log("filterNotes", filterNotes)
+    //     const filterNotes= notesData.map(i=>(
+    //         (i.title || i.description).includes(e.target.value)
+    //     )) 
+    //     console.log("filterNotes", filterNotes)
 
-        setFilteredNotes(filterNotes)
-    }
+    //     setFilteredNotes(filterNotes)
+    // }
 
     return (
         <>
-        <div className="relative flex justify-end mt-0 md:mt-4">
+        {/* <div className="relative flex justify-end mt-0 md:mt-4">
             <input type="text" placeholder="Search...." className="border border-focus-blue focus:border-focus-blue px-4 py-2 rounded-lg w-full md:w-80" onChange={handleSearch} />
             <span className="absolute top-2 right-2"><SearchIcon /></span>
-        </div>
+        </div> */}
         <div className="mt-4 border-[#ddd] w-full overflow-x-auto">
             <table >
                 <thead>
