@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-focus-blue: #1E3557;
+  --color-focus-orange: #F97316;
+}
+table, tr, th, td{
+}
+table{
+  width: 100%;
+}
+td,th{
+  padding: 4px 8px;
+}
+th{
+  background-color: #fbda9d;
+  color: #1E3557;
+  text-align: left;
+}
+tr:nth-child(even) {
+  background-color: #D6EEEE;
+}
+td{
+  /* border: 2px solid #1E3557;
+    border-radius: 50%; */
+    font-weight: 500
+}
+.icon-wrapper{
+  cursor: pointer;
+}
+
+
