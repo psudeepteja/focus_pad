@@ -32,13 +32,13 @@ export const noteSlice = createSlice({
             state.completedTasks = state.completedTasks.filter(i => (
                 i.id !== action.payload.id
             ))
-            state.notes = state.notes.concat(action.payload)
+            state.notes.unshift(action.payload)
         },
-        searchNotes:(state, action)=>{
+        searchNotes: (state, action) => {
             console.log("action", action)
-            if(action?.payload?.notesType === "Note List"){
-                state.notes = state.notes.filter(i=>
-                    (i.title || i.description).includes(action.payload.value) 
+            if (action?.payload?.notesType === "Note List") {
+                state.notes = state.notes.filter(i =>
+                    (i.title || i.description).includes(action.payload.value)
                 )
             }
         }

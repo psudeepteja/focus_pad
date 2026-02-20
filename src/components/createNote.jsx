@@ -15,7 +15,6 @@ export default function CreateNote({ isEdit, setIsEdit, noteValues, setNoteValue
     };
     const dispatch = useDispatch()
     const onSubmit = (data) => {
-        console.log("data", typeof data.amount)
         if (isEdit) {
             dispatch(editNotes(data))
             navigate('#noteList')
@@ -35,7 +34,6 @@ export default function CreateNote({ isEdit, setIsEdit, noteValues, setNoteValue
         setIsEdit(false)
     }
     useEffect(() => {
-        console.log("Object.keys(noteValues).length>=1", Object.keys(noteValues).length >= 1)
         if (Object.keys(noteValues)?.length >= 1) {
             reset(noteValues)
         }

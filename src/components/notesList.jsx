@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import EditIcon from "../icons/edit"
 import DeleteIcon from "../icons/delete"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { completedNotes, deleteNotes, resetNotes, searchNotes } from "../features/noteSlice";
 import Completed from "../icons/completed";
 import Reopen from "../icons/reopen";
@@ -11,15 +11,14 @@ import SearchIcon from "../icons/search";
 export default function NotesList({ setIsEdit, setNoteValues, notesData, type }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const [filterdNotes, setFilteredNotes]= useState(notesData)
+    const [filterdNotes, setFilteredNotes] = useState(notesData)
+    const [searchText, setSearchText] = useState("")
     const notesHeader = ["Date", 'Title', 'Description', 'Amount', 'Actions']
     const [page, setPage] = useState(0);
     const [itemPerPage, setItemPerPage] = useState(10)
     const pageNumber = Math.ceil(notesData?.length / itemPerPage)
     const start = page * itemPerPage;
     const end = start + itemPerPage
-    console.log("itemPerPage", typeof itemPerPage)
-    console.log("end", end)
     const actions = [
         {
             name: "Edit",
@@ -67,62 +66,72 @@ export default function NotesList({ setIsEdit, setNoteValues, notesData, type })
         }
     }
 
-    // const handleSearch =(e)=>{
-        
-    //     const filterNotes= notesData.map(i=>(
-    //         (i.title || i.description).includes(e.target.value)
-    //     )) 
-    //     console.log("filterNotes", filterNotes)
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            const filterd = notesData.filter((i) => (
+                i.title.includes(searchText) || i.description.includes(searchText)
+            ))
+            setFilteredNotes(filterd)
+        }, 500)
 
-    //     setFilteredNotes(filterNotes)
-    // }
+        return () => clearTimeout(timer)
+
+    }, [searchText])
+
+    useEffect(() => {
+        setFilteredNotes(notesData)
+    }, [notesData])
+
+    const handleSearch = (e) => {
+        setSearchText(e.target.value)
+    }
 
     return (
         <>
-        {/* <div className="relative flex justify-end mt-0 md:mt-4">
-            <input type="text" placeholder="Search...." className="border border-focus-blue focus:border-focus-blue px-4 py-2 rounded-lg w-full md:w-80" onChange={handleSearch} />
-            <span className="absolute top-2 right-2"><SearchIcon /></span>
-        </div> */}
-        <div className="mt-4 border-[#ddd] w-full overflow-x-auto">
-            <table >
-                <thead>
-                    <tr>
-                        {notesHeader?.map((i, idx) => (
-                            <th key={idx}>
-                                {i}
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {notesData?.slice(start, end)?.map((i, idx) => (
-                        <tr key={idx}>
-                            <td className="min-w-25">{i.date}</td>
-                            <td>{i.title}</td>
-                            <td>{i.description}</td>
-                            <td>{i.amount ? i.amount : 0}</td>
-                            <td>
-                                <div className="flex gap-2 items-center relative ">
-                                    {actions?.map((item, index) => (
-                                        type === item.type &&(
-                                        <div key={index} className="relative group">
-                                        <span  className="icon-wrapper" onClick={() => { handleClick(i, item) }}>
-                                            {item.icon}
-                                        </span>
-                                        <span className="absolute bottom-8 left-0 hidden group-hover:block bg-focus-blue text-white text-xs px-2 py-1 rounded whitespace-nowrap">{item.name}</span>
-                                        </div>
-                                    )))}
-                                </div>
-                            </td>
+            <div className="relative flex justify-end mt-4 md:mt-0">
+                <input type="text" name="search" id="search" placeholder="Search...." className="border border-focus-blue focus:border-focus-blue px-4 py-2 rounded-lg w-full md:w-80 outline-none focus:ring-focus-blue/20" onChange={handleSearch} />
+                <span className="absolute top-2 right-2"><SearchIcon /></span>
+            </div>
+            <div className="mt-4 border-[#ddd] w-full overflow-x-auto">
+                <table >
+                    <thead>
+                        <tr>
+                            {notesHeader?.map((i, idx) => (
+                                <th key={idx}>
+                                    {i}
+                                </th>
+                            ))}
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            {notesData?.length === 0 && (
-                <span className="flex justify-center text-focus-blue my-4 font-bold">No data available</span>
-            )}
-        </div>
-        {notesData.length >= 10 && (
+                    </thead>
+                    <tbody>
+                        {filterdNotes?.slice(start, end)?.map((i, idx) => (
+                            <tr key={idx}>
+                                <td className="min-w-25">{i.date}</td>
+                                <td>{i.title}</td>
+                                <td>{i.description}</td>
+                                <td>{i.amount ? i.amount : 0}</td>
+                                <td>
+                                    <div className="flex gap-2 items-center relative ">
+                                        {actions?.map((item, index) => (
+                                            type === item.type && (
+                                                <div key={index} className="relative group">
+                                                    <span className="icon-wrapper" onClick={() => { handleClick(i, item) }}>
+                                                        {item.icon}
+                                                    </span>
+                                                    <span className="absolute bottom-8 left-0 hidden group-hover:block bg-focus-blue text-white text-xs px-2 py-1 rounded whitespace-nowrap">{item.name}</span>
+                                                </div>
+                                            )))}
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                {filterdNotes?.length === 0 && (
+                    <span className="flex justify-center text-focus-blue my-4 font-bold">No data available</span>
+                )}
+            </div>
+            {notesData.length >= 10 && (
                 <div className="flex items-center justify-end gap-2 p-2">
                     <select id="page" name="page" className="text-focus-blue border rounded-md" value={itemPerPage} onChange={(e) => {
                         setItemPerPage(Number(e.target.value))
