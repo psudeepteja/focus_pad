@@ -11,7 +11,7 @@ import SearchIcon from "../icons/search";
 export default function NotesList({ setIsEdit, setNoteValues, notesData, type }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [filterdNotes, setFilteredNotes]= useState(notesData)
+    // const [filterdNotes, setFilteredNotes]= useState(notesData)
     const notesHeader = ["Date", 'Title', 'Amount', 'Description', 'Actions']
     const [page, setPage] = useState(0);
     const [itemPerPage, setItemPerPage] = useState(10)
@@ -95,7 +95,7 @@ export default function NotesList({ setIsEdit, setNoteValues, notesData, type })
                     </tr>
                 </thead>
                 <tbody>
-                    {filterdNotes?.slice(start, end)?.map((i, idx) => (
+                    {notesData?.slice(start, end)?.map((i, idx) => (
                         <tr key={idx}>
                             <td className="min-w-25">{i.date}</td>
                             <td>{i.title}</td>
