@@ -5,7 +5,7 @@ export default function RootLayout() {
     return (
         <div >
             <Header />
-            <main className="mx-8">
+            <main className="mx-4 md:mx-8">
                 <Outlet />
             </main>
         </div>

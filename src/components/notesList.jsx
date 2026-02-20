@@ -12,7 +12,7 @@ export default function NotesList({ setIsEdit, setNoteValues, notesData, type })
     const dispatch = useDispatch();
     const navigate = useNavigate();
     // const [filterdNotes, setFilteredNotes]= useState(notesData)
-    const notesHeader = ["Date", 'Title', 'Amount', 'Description', 'Actions']
+    const notesHeader = ["Date", 'Title', 'Description', 'Amount', 'Actions']
     const [page, setPage] = useState(0);
     const [itemPerPage, setItemPerPage] = useState(10)
     const pageNumber = Math.ceil(notesData?.length / itemPerPage)
@@ -99,8 +99,8 @@ export default function NotesList({ setIsEdit, setNoteValues, notesData, type })
                         <tr key={idx}>
                             <td className="min-w-25">{i.date}</td>
                             <td>{i.title}</td>
-                            <td>{i.amount ? i.amount : 0}</td>
                             <td>{i.description}</td>
+                            <td>{i.amount ? i.amount : 0}</td>
                             <td>
                                 <div className="flex gap-2 items-center relative ">
                                     {actions?.map((item, index) => (
@@ -121,7 +121,8 @@ export default function NotesList({ setIsEdit, setNoteValues, notesData, type })
             {notesData?.length === 0 && (
                 <span className="flex justify-center text-focus-blue my-4 font-bold">No data available</span>
             )}
-            {notesData.length >= 10 && (
+        </div>
+        {notesData.length >= 10 && (
                 <div className="flex items-center justify-end gap-2 p-2">
                     <select id="page" name="page" className="text-focus-blue border rounded-md" value={itemPerPage} onChange={(e) => {
                         setItemPerPage(Number(e.target.value))
@@ -136,7 +137,6 @@ export default function NotesList({ setIsEdit, setNoteValues, notesData, type })
                     {pageNumber > page + 1 && <button className="text-2xl font-bold text-focus-blue cursor-pointer" onClick={() => setPage(page + 1)}> {">"}</button>}
                 </div>
             )}
-        </div>
         </>
     )
 }
