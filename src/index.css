@@ -4,28 +4,41 @@
   --color-focus-blue: #1E3557;
   --color-focus-orange: #F97316;
 }
-table, tr, th, td{
+
+table,
+tr,
+th,
+td {
+  -webkit-appearance: none;
+  appearance: none;
 }
-table{
+
+table {
   width: 100%;
 }
-td,th{
+
+td,
+th {
   padding: 4px 8px;
 }
-th{
+
+th {
   background-color: #fbda9d;
   color: #1E3557;
   text-align: left;
 }
+
 tr:nth-child(even) {
   background-color: #D6EEEE;
 }
-td{
+
+td {
   /* border: 2px solid #1E3557;
     border-radius: 50%; */
-    font-weight: 500
+  font-weight: 500
 }
-.icon-wrapper{
+
+.icon-wrapper {
   cursor: pointer;
 }
 
