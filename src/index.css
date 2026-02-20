@@ -29,4 +29,7 @@ td{
   cursor: pointer;
 }
 
-
+input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
