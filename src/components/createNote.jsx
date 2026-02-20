@@ -15,20 +15,20 @@ export default function CreateNote({ isEdit, setIsEdit, noteValues, setNoteValue
     };
     const dispatch = useDispatch()
     const onSubmit = (data) => {
-        console.log("data", data)
+        console.log("data",typeof data.amount)
         if (isEdit) {
             dispatch(editNotes(data))
             navigate('#noteList')
         } else {
             data.id = generateId()
-            data.amount = typeof amount === 'number' ? data.amount : 0
+            // data.amount = typeof amount === 'number' ? data.amount : 0
             dispatch(noteDetails(data))
         }
         reset({
             id: null,
             date: '',
             title: '',
-            amount: 0,
+            amount: null,
             description: ''
         })
         setNoteValues({})
@@ -70,7 +70,7 @@ export default function CreateNote({ isEdit, setIsEdit, noteValues, setNoteValue
                     </div>
                     <div className="relative ">
                         <TextInput
-                            // type="number"
+                            type="number"
                             {...register("amount", {
                                 valueAsNumber: true
                             })}
