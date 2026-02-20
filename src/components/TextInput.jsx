@@ -7,7 +7,7 @@ export default function TextInput(props) {
             id={id}
             name={name}
             value={value}
-            className={`w-full border
+            className={`w-full border min-h-15
                         peer rounded-lg bg-white px-4 pt-6 pb-2
                         text-slate-900
                         border-focus-blue

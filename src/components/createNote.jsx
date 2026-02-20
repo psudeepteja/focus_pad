@@ -15,7 +15,7 @@ export default function CreateNote({ isEdit, setIsEdit, noteValues, setNoteValue
     };
     const dispatch = useDispatch()
     const onSubmit = (data) => {
-        console.log("data",typeof data.amount)
+        console.log("data", typeof data.amount)
         if (isEdit) {
             dispatch(editNotes(data))
             navigate('#noteList')
@@ -66,7 +66,6 @@ export default function CreateNote({ isEdit, setIsEdit, noteValues, setNoteValue
                             })}
                         />
                         <Label children="Title" required />
-
                     </div>
                     <div className="relative ">
                         <TextInput
